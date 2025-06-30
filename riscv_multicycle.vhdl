@@ -234,7 +234,7 @@ begin
     -------------------------- ID state hardware ---------------------------------------------
     -- Decode instruction fields
     rs1 <= if_id_instr(<define bit> downto <define bit>);
-    rs2 <= if_id_instr(<define bit> downto<define bit>20);
+    rs2 <= if_id_instr(<define bit> downto <define bit>);
     rd  <= if_id_instr(<define bit> downto <define bit>);
     opcode <= if_id_instr(<define bit> downto <define bit>);
 
@@ -288,7 +288,7 @@ begin
     
     alu_input_a <= reg1_data;
     -- mux to select alu input B
-    alu_input_b <= <which_register> when alu_src = '1' else
+    alu_input_b <= <which_register> when <which_control_signal> else
                    <which_register>;
     -- ALU
     alu_inst: alu
