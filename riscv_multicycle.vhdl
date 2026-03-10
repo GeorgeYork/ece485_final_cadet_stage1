@@ -93,11 +93,9 @@ architecture Behavioral of riscv_multicycle is
     signal mem_wb_data : STD_LOGIC_VECTOR(31 downto 0);
 
     -- Additional signals
+    signal not_equal_flag : STD_LOGIC;
 
-     
-
-
-    
+      
     component pc_live 
     Port (
         clk     : in  STD_LOGIC;
@@ -283,6 +281,7 @@ begin
     id_ex_reg1_data <= reg1_data;
     id_ex_reg2_data <= reg2_data;
     id_ex_imm  <= imm;
+    id_ex_npc <= NPC;
 
     -------------------------- EX state hardware ---------------------------------------------
     
@@ -302,6 +301,7 @@ begin
     -- EX/MEM pipeline register
     ex_mem_alu  <= alu_result;
     ex_mem_reg2_data <= id_ex_reg2_data;
+    ex_mem_npc <= id_ex_npc;
 
     -------------------------- MEM state hardware ---------------------------------------------
     
@@ -316,6 +316,9 @@ begin
             mem_write => mem_write_chip  -- write is dangerous... only want to do this on a specific clock cycle
         );
 
+    -- Comparator 
+    not_equal_flag <= '1' when <what do we compare to decide if we should branch?> else '0';
+    
     -- Moore Machine, outputs determined by State
     -- MEMORY
     mem_write_chip <= '1' when (state = MEMORY and <what control signals?>) else '0';  -- ensure only write to memory during this state

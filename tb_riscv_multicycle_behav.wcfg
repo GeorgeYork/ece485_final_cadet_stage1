@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="3320845922fs"></ZoomEndTime>
-      <Cursor1Time time="800000000fs"></Cursor1Time>
+      <ZoomStartTime time="295200000fs"></ZoomStartTime>
+      <ZoomEndTime time="462400001fs"></ZoomEndTime>
+      <Cursor1Time time="395000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="161"></NameColumnWidth>
-      <ValueColumnWidth column_width="129"></ValueColumnWidth>
+      <ValueColumnWidth column_width="121"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="33" />
+   <WVObjectSize size="34" />
    <wvobject fp_name="/tb_riscv_multicycle/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -89,19 +89,22 @@
    <wvobject fp_name="/tb_riscv_multicycle/uut/imm" type="array">
       <obj_property name="ElementShortName">imm[31:0]</obj_property>
       <obj_property name="ObjectShortName">imm[31:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_riscv_multicycle/uut/alu_input_b" type="array">
       <obj_property name="ElementShortName">alu_input_b[31:0]</obj_property>
       <obj_property name="ObjectShortName">alu_input_b[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_riscv_multicycle/uut/alu_input_a" type="array">
       <obj_property name="ElementShortName">alu_input_a[31:0]</obj_property>
       <obj_property name="ObjectShortName">alu_input_a[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_riscv_multicycle/uut/alu_result" type="array">
       <obj_property name="ElementShortName">alu_result[31:0]</obj_property>
       <obj_property name="ObjectShortName">alu_result[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_riscv_multicycle/uut/mem_data" type="array">
       <obj_property name="ElementShortName">mem_data[31:0]</obj_property>
@@ -138,6 +141,10 @@
    <wvobject fp_name="/tb_riscv_multicycle/uut/reg_write_chip" type="logic">
       <obj_property name="ElementShortName">reg_write_chip</obj_property>
       <obj_property name="ObjectShortName">reg_write_chip</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_riscv_multicycle/uut/not_equal_flag" type="logic">
+      <obj_property name="ElementShortName">not_equal_flag</obj_property>
+      <obj_property name="ObjectShortName">not_equal_flag</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_riscv_multicycle/uut/reg_file_inst/display_x5" type="array">
       <obj_property name="ElementShortName">display_x5[31:0]</obj_property>
