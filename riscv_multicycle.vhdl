@@ -72,6 +72,7 @@ architecture Behavioral of riscv_multicycle is
     signal if_id_load_addr, id_ex_load_addr, ex_mem_load_addr, mem_wb_load_addr  : STD_LOGIC;
     
      -- Additional signals [used in later stages]
+	signal not_equal_flag : STD_LOGIC;
     signal stall, start_stall, double_stall        : STD_LOGIC;
     signal stall_counter : integer range 0 to 3 := 0;
     signal mux_select_A  : STD_LOGIC_VECTOR(1 downto 0) := (others => '0');
@@ -320,7 +321,7 @@ begin
     not_equal_flag <= '1' when <what do we compare to decide if we should branch?> else '0';
     
     -- Moore Machine, outputs determined by State
-    -- MEMORY
+    
     mem_write_chip <= '1' when (state = MEMORY and <what control signals?>) else '0';  -- ensure only write to memory during this state
     next_pc <= <math based on NPC and imm> when (state = MEMORY and <when do we want to branch?>) else
                <math based on NPC and imm> when (state = MEMORY and <when do we want to jump?>) else
