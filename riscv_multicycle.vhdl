@@ -31,7 +31,7 @@ architecture Behavioral of riscv_multicycle is
     signal state : state_type := FETCH;
 
     -- Basic Registers
-    signal pc, pc_byte_not_word, NPC, next_pc           : STD_LOGIC_VECTOR(31 downto 0);
+    signal pc, pc_in, pc_byte_not_word, NPC, next_pc           : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal instr                                        : STD_LOGIC_VECTOR(31 downto 0);
     signal opcode                                       : STD_LOGIC_VECTOR(6 downto 0);
     signal reg1_data, reg2_data                         : STD_LOGIC_VECTOR(31 downto 0);
@@ -190,7 +190,7 @@ begin
         port map (
             clk    => clk,
             reset  => reset,
-            pc_in  => if_id_pc,   -- see writeback stage where the PC for the next clock cycle is determined
+            pc_in  => pc_in,   -- see writeback stage where the PC for the next clock cycle is determined
             pc_out => pc
         );
 
@@ -232,16 +232,16 @@ begin
 
     -------------------------- ID state hardware ---------------------------------------------
     -- Decode instruction fields
-    rs1 <= if_id_instr(<define bit> downto <define bit>);
-    rs2 <= if_id_instr(<define bit> downto <define bit>);
-    rd  <= if_id_instr(<define bit> downto <define bit>);
-    opcode <= if_id_instr(<define bit> downto <define bit>);
+    rs1 <= instr(<define bit> downto <define bit>);
+    rs2 <= instr(<define bit> downto <define bit>);
+    rd  <= instr(<define bit> downto <define bit>);
+    opcode <= instr(<define bit> downto <define bit>);
 
     -- ALU control unit
     alu_control_inst: alu_control
         port map (
-            funct3 => if_id_instr(<define bit> downto <define bit>),
-            funct7 => if_id_instr(<define bit> downto <define bit>),
+            funct3 => instr(<define bit> downto <define bit>),
+            funct7 => instr(<define bit> downto <define bit>),
             alu_op => alu_op
         );
 
@@ -279,10 +279,6 @@ begin
         );
 
     -- ID/EX pipeline register
-    id_ex_reg1_data <= reg1_data;
-    id_ex_reg2_data <= reg2_data;
-    id_ex_imm  <= imm;
-    id_ex_npc <= NPC;
 
     -------------------------- EX state hardware ---------------------------------------------
     
@@ -300,9 +296,6 @@ begin
         );
 
     -- EX/MEM pipeline register
-    ex_mem_alu  <= alu_result;
-    ex_mem_reg2_data <= id_ex_reg2_data;
-    ex_mem_npc <= id_ex_npc;
 
     -------------------------- MEM state hardware ---------------------------------------------
     
@@ -335,11 +328,11 @@ begin
 
     -- Moore Machine, outputs determined by State
     reg_write_chip <= '1' when (state = WRITEBACK and <what control signals?>) else '0'; -- ensure only write to registers during this state
-    if_id_pc   <= next_pc when state = WRITEBACK else if_id_pc; -- only lets this update during WRITEBACK
+    pc_in   <= next_pc when state = WRITEBACK else pc_in; -- only lets this update during WRITEBACK
     wb_data <= x"10000000" when (state = WRITEBACK and <what control signals?>) else
-               mem_wb_data when (state = WRITEBACK and <what control signals?>) else
-               mem_wb_alu  when (state = WRITEBACK and <what control signals?>) else
+               mem_data when (state = WRITEBACK and <what control signals?>) else
+               alu_result  when (state = WRITEBACK and <what control signals?>) else
                wb_data;  -- only allow this to change during Writeback
 
-    wb_rd   <= if_id_instr(<define bit> downto <define bit>); -- Destination register
+    wb_rd   <= instr(<define bit> downto <define bit>); -- Destination register
 end Behavioral;
